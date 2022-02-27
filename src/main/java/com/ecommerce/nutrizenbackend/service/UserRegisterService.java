@@ -24,7 +24,7 @@ public class UserRegisterService {
 	}//getUsers
 	
 	public void addNewUser(UserRegister user) {
-		Optional<UserRegister> userByEmail = userRegisterRepository.findByName(user.getEmail());
+		Optional<UserRegister> userByEmail = userRegisterRepository.findByEmail(user.getEmail());
 		if(userByEmail.isPresent()) {
 			throw new IllegalStateException("El usuario con el email [" + user.getEmail() + "] ya existe");
 		}else {
@@ -32,6 +32,24 @@ public class UserRegisterService {
 		}//if else
 		
 	}//addNewUser
+
+	
+	//UserLoginService
+	public boolean login(String email, String password) {
+		boolean respuesta = false;
+		
+		Optional<UserRegister> user = userRegisterRepository.findByEmail(email);
+		
+		if(user.isPresent()) {
+			if(user.get().getPassword().equals(password)) {
+				respuesta = true;
+			}//if anidado
+		}//if
+		
+		return respuesta;
+	}//login
+	
+	
 
 
 	
