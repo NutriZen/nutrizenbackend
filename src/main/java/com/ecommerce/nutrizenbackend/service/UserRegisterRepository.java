@@ -10,6 +10,6 @@ import com.ecommerce.nutrizenbackend.model.UserRegister;
 public interface UserRegisterRepository extends JpaRepository<UserRegister, Long> {
 	
 	@Query("SELECT u FROM UserRegister u WHERE u.email = ?1")
-	Optional<UserRegister> findByName(String email);
+	Optional<UserRegister> findByEmail(String email);
 
 }//interface UserRegisterRepository
