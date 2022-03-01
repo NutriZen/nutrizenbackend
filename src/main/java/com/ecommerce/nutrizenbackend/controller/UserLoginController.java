@@ -34,7 +34,4 @@ public class UserLoginController {
 		return respuesta;
 	}//Login
 	
-	
-	
-
 }//class UserLoginController

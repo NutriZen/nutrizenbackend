@@ -28,26 +28,25 @@ public class UserRegisterService {
 		if(userByEmail.isPresent()) {
 			throw new IllegalStateException("El usuario con el email [" + user.getEmail() + "] ya existe");
 		}else {
+			user.setPassword( utils.SHAUtil.createHash(user.getPassword()) );
 			userRegisterRepository.save(user);
 		}//if else
-		
 	}//addNewUser
 
 	
 	//UserLoginService
 	public boolean login(String email, String password) {
-		boolean respuesta = false;
-		
-		Optional<UserRegister> user = userRegisterRepository.findByEmail(email);
-		
-		if(user.isPresent()) {
-			if(user.get().getPassword().equals(password)) {
-				respuesta = true;
-			}//if anidado
-		}//if
-		
-		return respuesta;
-	}//login
+		  boolean res=false;
+		    Optional<UserRegister> user = userRegisterRepository.findByEmail(email);
+		    if (user.isPresent()) {
+		    	System.out.println("Password SHA: "+utils.SHAUtil.createHash(password));
+		        if (utils.SHAUtil.verifyHash(password, user.get().getPassword())) {
+		            res=true;
+		        }// if password
+		    }//if isPresent
+		    return res;
+			
+		}//login
 	
 	
 
